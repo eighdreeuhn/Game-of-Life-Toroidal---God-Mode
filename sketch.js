@@ -38,13 +38,13 @@ function setup () {
   Tone.Transport.start()
   createCanvas(1200, 600)
   world = []
-  for (let i = 0; i < 60; i++) world.push([...Array(120)].map(_ => ~~(Math.random() * 2)))
+  for (let i = 0; i < 120; i++) world.push([...Array(240)].map(_ => ~~(Math.random() * 2)))
 }
 
 function draw () {
   const newWorld = [...world.map(row => [...row])]
-  for (let i = 0; i < 120; i++) {
-    for (let j = 0; j < 60; j++) {
+  for (let i = 0; i < 240; i++) {
+    for (let j = 0; j < 120; j++) {
       const hood = neighbors(j, i)
       if (hood < 2 || hood > 3) {
         newWorld[j][i] = 0
@@ -52,7 +52,7 @@ function draw () {
         newWorld[j][i] = 1
       }
       newWorld[j][i] ? fill(190, 0, 0) : fill(160)
-      square(10 * i, 10 * j, 9)
+      square(5 * i, 5 * j, 4)
     }
   }
   world = [...newWorld.map(row => [...row])]
@@ -63,7 +63,7 @@ function neighbors (r, c) {
     const [cr, cc] = [r + dy, c + dx]
     return (
       n +
-      world[cr >= 60 ? 0 : cr < 0 ? 59 : cr][cc >= 120 ? 0 : cc < 0 ? 119 : cc]
+      world[cr >= 120 ? 0 : cr < 0 ? 119 : cr][cc >= 240 ? 0 : cc < 0 ? 239 : cc]
     )
   }, 0)
 }
@@ -72,6 +72,6 @@ function mouseClicked () {
   if (mouseX >= 0 && mouseY >= 0 && mouseX < 1200 && mouseY < 600) {
     hihat.triggerAttackRelease('8n')
     voice.triggerAttackRelease(Math.floor(Math.random() * 365) + 100, '4n')
-    world[~~(mouseY / 10)][~~(mouseX / 10)] = 3
+    world[~~(mouseY / 5)][~~(mouseX / 5)] = 3
   }
 }
