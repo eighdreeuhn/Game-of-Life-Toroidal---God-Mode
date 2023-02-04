@@ -1,37 +1,44 @@
 //----- Attempt at Conway's Game of Life P5 -----//
 
-const reverb = new Tone.Reverb({wet: 1}).toDestination()
-const voiceA = new Tone.MonoSynth({
-    
-})
-const voiceB = new Tone.MonoSynth({
-
-})
-const voice = new Tone.DuoSynth({
-    voice0: voiceA,
-    voice1: voiceB,
-    volume: -12,
-    portamento: 0.5,
-    harmonicity: 2
-}).connect(reverb)
+const reverb = new Tone.Freeverb({
+  roomSize: 0.5,
+  dampening: 1000
+}).toDestination()
+const voice = new Tone.MonoSynth({
+    envelope: {
+        attack: 0.5,
+        decay: 1,
+        sustain: 1
+    },
+    oscillator:{
+        type: 'fatsine'
+    },
+    volume: -6,
+    portamento: 0.5
+}).toDestination()
+const hihat = new Tone.MetalSynth({
+    volume: -20
+}).toDestination()
+const loop = new Tone.Loop((time) => {
+    hihat.triggerAttackRelease('A6', '+2n')
+}, "2m").start(0)
 const neighborhood = [
-  [-1, -1],
-  [-1, 0],
-  [-1, 1],
-  [0, -1],
-  [0, 1],
-  [1, -1],
-  [1, 0],
-  [1, 1]
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1]
 ]
 let world = []
 
 function setup () {
-    Tone.start()
+  Tone.Transport.start()
   createCanvas(1200, 600)
   world = []
-  for (let i = 0; i < 60; i++)
-    world.push([...Array(120)].map(_ => ~~(Math.random() * 2)))
+  for (let i = 0; i < 60; i++) world.push([...Array(120)].map(_ => ~~(Math.random() * 2)))
 }
 
 function draw () {
@@ -62,7 +69,9 @@ function neighbors (r, c) {
 }
 
 function mouseClicked () {
-  voice.triggerAttackRelease(Math.floor(Math.random() * 365) + 100, '4n')
-  if (mouseX >= 0 && mouseY >= 0 && mouseX < 1200 && mouseY < 600)
+  if (mouseX >= 0 && mouseY >= 0 && mouseX < 1200 && mouseY < 600) {
+    hihat.triggerAttackRelease('8n')
+    voice.triggerAttackRelease(Math.floor(Math.random() * 365) + 100, '4n')
     world[~~(mouseY / 10)][~~(mouseX / 10)] = 3
+  }
 }
