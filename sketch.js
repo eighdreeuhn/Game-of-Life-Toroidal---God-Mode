@@ -1,5 +1,19 @@
 //----- Attempt at Conway's Game of Life P5 -----//
 
+const reverb = new Tone.Reverb({wet: 1}).toDestination()
+const voiceA = new Tone.MonoSynth({
+    
+})
+const voiceB = new Tone.MonoSynth({
+
+})
+const voice = new Tone.DuoSynth({
+    voice0: voiceA,
+    voice1: voiceB,
+    volume: -12,
+    portamento: 0.5,
+    harmonicity: 2
+}).connect(reverb)
 const neighborhood = [
   [-1, -1],
   [-1, 0],
@@ -13,6 +27,7 @@ const neighborhood = [
 let world = []
 
 function setup () {
+    Tone.start()
   createCanvas(1200, 600)
   world = []
   for (let i = 0; i < 60; i++)
@@ -39,11 +54,15 @@ function draw () {
 function neighbors (r, c) {
   return neighborhood.reduce((n, [dy, dx]) => {
     const [cr, cc] = [r + dy, c + dx]
-    return n + world[cr >= 60 ? 0 : cr < 0 ? 59 : cr][cc >= 120 ? 0 : cc < 0 ? 119 : cc]
+    return (
+      n +
+      world[cr >= 60 ? 0 : cr < 0 ? 59 : cr][cc >= 120 ? 0 : cc < 0 ? 119 : cc]
+    )
   }, 0)
 }
 
 function mouseClicked () {
+  voice.triggerAttackRelease(Math.floor(Math.random() * 365) + 100, '4n')
   if (mouseX >= 0 && mouseY >= 0 && mouseX < 1200 && mouseY < 600)
     world[~~(mouseY / 10)][~~(mouseX / 10)] = 3
 }
