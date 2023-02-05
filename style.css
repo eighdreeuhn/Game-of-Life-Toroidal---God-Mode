@@ -3,3 +3,8 @@ body {
     color: rgb(215, 231, 229);
     text-align: center;
 }
+
+canvas {
+    border: 2px solid whitesmoke;
+    margin-top: 3px;;
+}
