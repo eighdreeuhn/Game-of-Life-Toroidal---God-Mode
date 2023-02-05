@@ -9,5 +9,6 @@ button {
 }
 main {
     border: 2px solid whitesmoke;
-    margin-top: 3px;;
+    margin-top: 3px;
+    width: 1005px;
 }
