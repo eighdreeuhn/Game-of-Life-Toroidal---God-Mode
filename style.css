@@ -4,6 +4,9 @@ body {
     text-align: center;
 }
 
+button {
+    margin-bottom: 5px;;
+}
 canvas {
     border: 2px solid whitesmoke;
     margin-top: 3px;;
