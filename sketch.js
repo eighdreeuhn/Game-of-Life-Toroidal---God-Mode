@@ -40,7 +40,6 @@ function setup () {
   Tone.Transport.start()
   createCanvas(1200, 600)
   noStroke()
-  frameRate(30)
   world = []
   for (let i = 0; i < 120; i++)
     world.push([...Array(240)].map(_ => ~~(Math.random() * 2)))
