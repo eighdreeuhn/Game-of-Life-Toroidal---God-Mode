@@ -55,7 +55,7 @@ function draw () {
       } else if (hood === 3) {
         newWorld[j][i] = 1
       }
-      newWorld[j][i] ? fill(190, 190, 190) : fill(0, 130, 75)
+      newWorld[j][i] ? fill(190, 30, 0) : fill(15, 130, 130)
       square(5 * i, 5 * j, 5)
     }
   }
