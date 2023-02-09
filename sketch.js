@@ -42,7 +42,7 @@ function setup () {
   noStroke()
   world = []
   for (let i = 0; i < 120; i++)
-    world.push([...Array(240)].map(_ => ~~(Math.random() * 2)))
+    world.push([...Array(240)].map(_ => Math.floor(Math.random() * 2)))
 }
 
 function draw () {
@@ -77,7 +77,7 @@ function neighbors (r, c) {
 function mouseClicked () {
   if (mouseX >= 0 && mouseY >= 0 && mouseX < 1200 && mouseY < 600) {
     hihat.triggerAttackRelease('8n')
-    voice.triggerAttackRelease(Math.floor(Math.random() * 365) + 100, '4n')
+    voice.triggerAttackRelease(Math.ceil(Math.random() * 365) + 100, '4n')
     world[~~(mouseY / 5)][~~(mouseX / 5)] = 3
   }
 }
