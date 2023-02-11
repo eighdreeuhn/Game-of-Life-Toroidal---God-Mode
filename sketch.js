@@ -26,14 +26,17 @@ const loop = new Tone.Loop(time => {
 
 const neighborhood = [
   [-1, -1],
-  [-1, 0],
-  [-1, 1],
-  [0, -1],
-  [0, 1],
-  [1, -1],
-  [1, 0],
-  [1, 1]
+  [-1,  0],
+  [-1,  1],
+  [ 0, -1],
+  [ 0,  1],
+  [ 1, -1],
+  [ 1,  0],
+  [ 1,  1]
 ]
+
+//----- placeholder for god-modes -----//
+let mode = 'Creator'
 let world = []
 
 function setup () {
@@ -42,7 +45,8 @@ function setup () {
   noStroke()
   world = []
   for (let i = 0; i < 120; i++)
-    world.push([...Array(240)].map(_ => Math.floor(Math.random() * 2)))
+    world.push(Array(240).fill(0))
+    // world.push([...Array(240)].map(_ => Math.floor(Math.random() * 2)))
 }
 
 function draw () {
@@ -67,9 +71,7 @@ function neighbors (r, c) {
     const [cr, cc] = [r + dy, c + dx]
     return (
       n +
-      world[cr >= 120 ? 0 : cr < 0 ? 119 : cr][
-        cc >= 240 ? 0 : cc < 0 ? 239 : cc
-      ]
+      world[cr >= 120 ? 0 : cr < 0 ? 119 : cr][cc >= 240 ? 0 : cc < 0 ? 239 : cc]
     )
   }, 0)
 }
