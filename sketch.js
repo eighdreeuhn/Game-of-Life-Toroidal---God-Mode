@@ -45,8 +45,7 @@ function setup () {
   noStroke()
   world = []
   for (let i = 0; i < 120; i++)
-    // world.push([...Array(240)].map(_ => [1,0][~~(Math.random()*2)]))
-    world.push([...Array(240)].map(_ => Math.floor(Math.random() * 2)))
+    world.push([...Array(240)].map(_ => Math.floor(Math.random()* 2)))
 }
 
 function draw () {
