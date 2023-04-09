@@ -20,8 +20,17 @@ const voice = new Tone.MonoSynth({
 
 const hihat = new Tone.MetalSynth({ volume: -20 }).toDestination()
 
+const bass = new Tone.FMSynth().toDestination()
+
 const loop = new Tone.Loop(time => {
-  hihat.triggerAttackRelease('A6', '+2n')
+  hihat.triggerAttackRelease('A6', time)
+  bass.triggerAttackRelease('A2', '2n', time + 1)
+  bass.triggerAttackRelease('E3', '8n', time + 1.75)
+  bass.triggerAttackRelease('E1', '2n', time + 2)
+  bass.triggerAttackRelease('G2', '8n', time + 3)
+  bass.triggerAttackRelease('G6', '16n', time + 3.25)
+  bass.triggerAttackRelease('A3', '8n', time + 3.75)
+  bass.triggerAttackRelease('B6', '16n', time + 4)
 }, '2m').start(0)
 
 const neighborhood = [
@@ -75,7 +84,7 @@ function neighbors (r, c) {
   }, 0)
 }
 
-function mouseClicked () {
+function mousePressed () {
   if (mouseX >= 0 && mouseY >= 0 && mouseX < 1200 && mouseY < 600) {
     hihat.triggerAttackRelease('8n')
     voice.triggerAttackRelease(Math.ceil(Math.random() * 365) + 100, '4n')
